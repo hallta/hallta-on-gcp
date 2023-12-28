@@ -63,10 +63,13 @@ def do_inserts(tx):
 
 def insert_albums(tx):
 
+    #   "(12, 1, 'the first title'), "
+    #   "(13, 2, 'the second title')"
+
     row_ct = tx.execute_update(
         "insert into Albums (SingerId, AlbumId, AlbumTitle) values "
-        "(12, 1, 'the first title'), "
-        "(13, 2, 'the second title')"
+        "(14, 3, 'the third title'), "
+        "(15, 4, 'the fourth title')"
     )
 
     print("{} record(s) inserted".format(row_ct))
