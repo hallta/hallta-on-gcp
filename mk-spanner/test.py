@@ -67,3 +67,13 @@ with database.snapshot() as snapshot:
     for row in results:
         print(row)
 
+with database.snapshot() as snapshot:
+    res = snapshot.execute_sql(
+        "select SingerId, FirstName, LastName from Singers "
+        "where LastName = @lastName",
+        params={"lastName": "Garcia"},
+        param_types={"lastName": spanner.param_types.STRING},
+    )
+
+    for row in res:
+        print(row)
