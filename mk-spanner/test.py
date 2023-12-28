@@ -61,6 +61,18 @@ def do_inserts(tx):
 # Id (how did it know that?) can only exist one time.. one time
 #database.run_in_transaction(do_inserts)
 
+def insert_albums(tx):
+
+    row_ct = tx.execute_update(
+        "insert into Albums (SingerId, AlbumId, AlbumTitle) values "
+        "(12, 1, 'the first title'), "
+        "(13, 2, 'the second title')"
+    )
+
+    print("{} record(s) inserted".format(row_ct))
+
+#database.run_in_transaction(insert_albums)
+
 with database.snapshot() as snapshot:
     results = snapshot.execute_sql('select SingerId, FirstName, LastName from Singers')
 
@@ -75,5 +87,10 @@ with database.snapshot() as snapshot:
         param_types={"lastName": spanner.param_types.STRING},
     )
 
+    for row in res:
+        print(row)
+
+with database.snapshot() as snapshot:
+    res = snapshot.execute_sql("select * from Albums")
     for row in res:
         print(row)
