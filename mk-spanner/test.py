@@ -2,7 +2,6 @@
 # https://cloud.google.com/spanner/docs/getting-started/python
 #gcloud spanner instances create test-instance --config=regional-us-central1 --description="Test Instance" --nodes=1
 
-
 from google.cloud import spanner
 from google.cloud.spanner_admin_instance_v1.types import spanner_instance_admin
 from google.cloud.spanner_v1 import param_types
@@ -13,7 +12,7 @@ from google.protobuf import field_mask_pb2  # type: ignore
 
 OPERATION_TIMEOUT_SECONDS = 240
 
-instance_id = 'test-instance'
+instance_id = 'spanner-dev'
 database_id = 'example-db'
 
 client = spanner.Client()
@@ -81,19 +80,19 @@ with database.snapshot() as snapshot:
 
     for row in results:
         print(row)
-
-with database.snapshot() as snapshot:
-    res = snapshot.execute_sql(
-        "select SingerId, FirstName, LastName from Singers "
-        "where LastName = @lastName",
-        params={"lastName": "Garcia"},
-        param_types={"lastName": spanner.param_types.STRING},
-    )
-
-    for row in res:
-        print(row)
-
-with database.snapshot() as snapshot:
-    res = snapshot.execute_sql("select * from Albums")
-    for row in res:
-        print(row)
+#
+#with database.snapshot() as snapshot:
+#    res = snapshot.execute_sql(
+#        "select SingerId, FirstName, LastName from Singers "
+#        "where LastName = @lastName",
+#        params={"lastName": "Garcia"},
+#        param_types={"lastName": spanner.param_types.STRING},
+#    )
+#
+#    for row in res:
+#        print(row)
+#
+#with database.snapshot() as snapshot:
+#    res = snapshot.execute_sql("select * from Albums")
+#    for row in res:
+#        print(row)
